@@ -19,6 +19,7 @@ namespace App
         {
             InitializeComponent();
         }
+        //Button for selecting file
         private void button_file_Click(object sender, EventArgs e)
         {
          //   Stream myStream = null;
@@ -34,38 +35,30 @@ namespace App
                 try
                 {
                     FilePath = openFileDialog1.FileName;
-                    //if ((myStream = openFileDialog1.OpenFile()) != null)
-                    //{
-                    //    using (myStream)
-                    //    {
-                    //        // Insert code to read the stream here. 
-                    //    }
-                    //}
+                   
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
                 }
-
+                //Actions with Label, that displays the name of the selected file.
+                label_file_name.Visible = true;
+                label_file_name.Text = openFileDialog1.FileName;
             }
 
-        }
+        } 
+        //Button for sending selected file on to desired server address
         private void button_send_Click(object sender, EventArgs e)
         {
-          
-            Thread serverThread = new Thread(Server.StartListening);
-            Thread clientThread = new Thread(RunClient);
-            serverThread.Start();
-            clientThread.Start();
-            
-         //   Server.StartListening();
-         //   Client.StartClient(FilePath, textBox_IP.Text, port);
+         //   Thread serverThread = new Thread(Server.StartListening);
+         //   Thread clientThread = new Thread(RunClient);
+         ////   serverThread.Start();
+         //   clientThread.Start();
+            RunClient();
         }
         private void RunClient()
         {
-            int port;
-            int.TryParse(textBox_Port.Text, out port);
-            Client.StartClient(FilePath, textBox_IP.Text, port);
+            Client.StartClient(FilePath, textBox_IP.Text, 8800);
         }
     }
 }

@@ -12,6 +12,8 @@ namespace App
     {
         public static void StartClient(string File_Path, string Server_IP_Adress, int Server_Port)
         {
+
+             
             // Connect to a remote device.  
             try
             {
@@ -22,16 +24,15 @@ namespace App
                 // Create a TCP/IP  socket.  
                 Socket sender = new Socket(AddressFamily.InterNetwork,
                 SocketType.Stream, ProtocolType.Tcp);
-
                 // Connect the socket to the remote endpoint. Catch any errors.  
                 try
                 {
                     sender.Connect(remoteEP);
-
-                    Console.WriteLine("Socket connected to {0}",
-                        sender.RemoteEndPoint.ToString());
-
-                    Console.WriteLine("Sending {File_Path} to the host.");
+                    //Изменение label'а
+                    Form1.label_send_result.Text = $"Socket connected to {sender.RemoteEndPoint.ToString()}";
+                    
+                    Form1.label_send_result.Text = $"Sending {File_Path} to the host.";
+                    
                     sender.SendFile(File_Path);
 
                     // Release the socket.  
@@ -58,6 +59,7 @@ namespace App
                 Console.WriteLine(e.ToString());
             }
         }
+
 
 
     }
